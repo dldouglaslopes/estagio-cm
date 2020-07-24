@@ -1,6 +1,7 @@
 package br.com.casamagalhaes.estagiocm.repository;
 
 import br.com.casamagalhaes.estagiocm.model.Estagiario;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;

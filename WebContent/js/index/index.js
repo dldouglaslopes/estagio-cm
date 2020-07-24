@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 
     jQuery("#btn_vai").click(function(){
 
-        var url = '/greeting';
+        var url = '/estagio-cm/greeting';
         jQuery.ajax({
             url: url,
             type: 'GET',
@@ -11,7 +11,20 @@ jQuery(document).ready(function(){
             success: function (data, textStatus, jqXHR) {
                 jQuery("#resposta").append("Bem vindo, " + data.estagiario.nome + "! Tá salvo!");
             }
-        });
+        }); 
+    });
+    
+    jQuery("#pesquisar").click(function(){
 
+    	var url = '/estagio-cm/pesquisar';      
+    	jQuery.ajax({
+            url: url,
+            type: 'GET',
+            data: 'usuario.nome=Douglas',
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+               
+            }
+        }); 
     });
 });

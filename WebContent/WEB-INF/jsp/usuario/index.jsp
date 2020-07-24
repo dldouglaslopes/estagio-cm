@@ -21,8 +21,8 @@
 		<div id="resposta"></div>
 
 	</form>-->
-	<form id="form" action="<c:url value="/salvar" />" method="post">
-		Nome: <input id="nome" type="text" name="usuario.nome"/>
+	<form action="<c:url value="/salvar" />" method="post">
+		Nome: <input type="text" name="usuario.nome"/>
 		<br>
 		<br>
 		Data: <input id="data" type="text" name="usuario.data"/>
@@ -53,6 +53,8 @@
 					<td>${usuario.id}</td>
 					<td>${usuario.nome}</td>
 					<td>${usuario.data}</td>
+					<td><a href="<c:url value="/usuarios/${usuario.id}"/>}">Editar</a></td>
+					<td><a href="<c:url value="/delete/${fn:trim(usuario.id)}"/>">Excluir</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
