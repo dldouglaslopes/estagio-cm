@@ -1,6 +1,6 @@
 package br.com.casamagalhaes.estagiocm.controller;
 
-import java.text.ParseException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.casamagalhaes.estagiocm.data.Criptografia;
 import br.com.casamagalhaes.estagiocm.model.Usuario;
 import br.com.casamagalhaes.estagiocm.service.UsuarioService;
 
@@ -51,10 +52,13 @@ public class UsuarioController {
 	
 	@Post
 	@Path("/login")
-	public void login(Usuario usuario) {
+	public void login(Usuario usuario) throws NoSuchAlgorithmException {
 		List<Usuario> usuarios = usuarioService.pesquisar(usuario);
 		if (usuarios.size() > 0) {
-			if (!usuarios.get(0).getSenha().equals(usuario.getSenha())) {
+			Criptografia criptografia = new Criptografia();
+			String criptografado = criptografia.criptografarMD5(usuario);
+			
+			if (!usuarios.get(0).getSenha().equals(criptografado)) {
 				result.redirectTo(this.getClass()).init();
 			}
 			else {
@@ -70,7 +74,7 @@ public class UsuarioController {
 	@Transactional
     @Post
 	@Path("/salvar")
-	public void salvar(Usuario usuario) throws ParseException {
+	public void salvar(Usuario usuario) throws Exception {
 		boolean adicionado = usuarioService.salvar(usuario);
 		if (adicionado) {
 			result.include("adicionado", "Usuário adicionado com sucesso");

@@ -1,5 +1,6 @@
 package br.com.casamagalhaes.estagiocm.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public boolean salvar(Usuario usuario) {
+	public boolean salvar(Usuario usuario) throws Exception {
 		if(usuario == null) {
 			throw new IllegalArgumentException("Nenhuma propriedade informada");
 		}
 		return usuarioRepository.save(usuario);
+		
 	}
 
 	@Override

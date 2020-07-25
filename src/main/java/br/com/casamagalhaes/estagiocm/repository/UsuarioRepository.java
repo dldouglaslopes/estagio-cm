@@ -1,12 +1,13 @@
 package br.com.casamagalhaes.estagiocm.repository;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import br.com.casamagalhaes.estagiocm.model.Usuario;
 
 public interface UsuarioRepository {
 	
-	public boolean save(Usuario usuario);
+	public boolean save(Usuario usuario) throws NoSuchAlgorithmException;
 	
 	public List<Usuario> pesquisar(Usuario usuario);
 	

@@ -1,5 +1,6 @@
 package br.com.casamagalhaes.estagiocm.repository;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,12 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import br.com.casamagalhaes.estagiocm.data.Criptografia;
 import br.com.casamagalhaes.estagiocm.model.Usuario;
 
 @Repository
@@ -21,13 +19,17 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	private Session session;
-	
 	@Override
-	public boolean save(Usuario usuario) {
+	public boolean save(Usuario usuario) throws NoSuchAlgorithmException {
 		if (findByCpf(usuario.getCpf())) {
 			return false;
 		}
+		
+		Criptografia criptografia = new Criptografia();
+		String criptografado = criptografia.criptografarMD5(usuario);
+		
+		usuario.setSenha(criptografado);
+		
 		entityManager.persist(usuario);
 		return true;
 	}
