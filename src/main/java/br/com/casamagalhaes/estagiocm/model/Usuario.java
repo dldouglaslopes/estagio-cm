@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.caelum.vraptor.Convert;
+import br.com.casamagalhaes.estagiocm.converter.DateConverter;
 
 @Entity(name = "usuario")
 public class Usuario implements Serializable {
@@ -23,7 +27,10 @@ public class Usuario implements Serializable {
     private Long id;
 
 	private String nome;
+	
+	@Convert(DateConverter.class)
 	private Date data;
+	
 	private String senha;
 	
 	public Long getId() {

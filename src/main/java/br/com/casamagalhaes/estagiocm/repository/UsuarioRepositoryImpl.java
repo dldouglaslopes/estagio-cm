@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -20,6 +21,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 	@PersistenceContext
     private EntityManager entityManager;
 	
+	private Session session;
+	
 	@Override
 	public void save(Usuario usuario) {
 		entityManager.persist(usuario);	
@@ -27,17 +30,10 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 
 	@Override
 	public List<Usuario> pesquisar(Usuario usuario) {
-		Criteria c = ((Session)entityManager.getDelegate()).createCriteria(Usuario.class);
+		String queryStr = "SELECT u FROM usuario u where u.nome like '%" + usuario.getNome() + "%' ORDER BY u.nome";
+		Query query = entityManager.createQuery(queryStr);
 		
-		if(Objects.nonNull(usuario.getNome())) {
-			c.add(Restrictions.ilike("nome", usuario.getNome(), MatchMode.ANYWHERE));
-		}
-		
-		if(Objects.nonNull(usuario.getData())) {
-			c.equals(usuario.getData());
-		}
-
-        return c.list();
+        return query.getResultList();
 	}
 
 	@Override
@@ -49,5 +45,15 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 	public void remove(Long id) {
 		Usuario u = entityManager.find(Usuario.class, id);
 		entityManager.remove(u);
+	}
+
+	@Override
+	public void editar(Usuario usuario) {
+		entityManager.merge(usuario);
+	}
+
+	@Override
+	public Usuario pesquisar(Long id) {
+		return entityManager.find(Usuario.class, id);
 	}
 }

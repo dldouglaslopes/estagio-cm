@@ -13,6 +13,8 @@ public interface UsuarioRepository {
 	public List<Usuario> listar(String query);
 
 	public void remove(Long id);
+
+	public void editar(Usuario usuario);
 	
-	
+	public Usuario pesquisar(Long id);
 }

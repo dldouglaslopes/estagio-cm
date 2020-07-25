@@ -13,4 +13,8 @@ public interface UsuarioService {
 	public List<Usuario> pesquisar(Usuario usuario);
 
 	public void remove(Long id);
+
+	public void editar(Usuario usuario);
+
+	public Usuario pesquisar(Long id);
 }

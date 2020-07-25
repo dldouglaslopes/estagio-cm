@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
     	jQuery.ajax({
             url: url,
             type: 'GET',
-            data: 'usuario.nome=Douglas',
+            data: 'usuario.nome='+jQuery("#nome").val(),
             dataType: "json",
             success: function (data, textStatus, jqXHR) {
                

@@ -21,8 +21,9 @@
 		<div id="resposta"></div>
 
 	</form>-->
+	<h1> Cadastro de Usuários </h1>
 	<form action="<c:url value="/salvar" />" method="post">
-		Nome: <input type="text" name="usuario.nome"/>
+		Nome: <input id="nome" type="text" name="usuario.nome"/>
 		<br>
 		<br>
 		Data: <input id="data" type="text" name="usuario.data"/>
@@ -39,6 +40,7 @@
 	<input id="pesquisar" type="button" value="Pesquisar" />
 	<br>
 	<br>
+	<h1> Lista de Usuários </h1>
 	<table border="1" style="width: 60%">
 		<thead> 
 			<tr>
@@ -52,8 +54,8 @@
 				<tr>
 					<td>${usuario.id}</td>
 					<td>${usuario.nome}</td>
-					<td>${usuario.data}</td>
-					<td><a href="<c:url value="/usuarios/${usuario.id}"/>}">Editar</a></td>
+					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${usuario.data}"/></td>
+					<td><a href="<c:url value="/editar/${fn:trim(usuario.id)}"/>">Editar</a></td>
 					<td><a href="<c:url value="/delete/${fn:trim(usuario.id)}"/>">Excluir</a></td>
 				</tr>
 			</c:forEach>
@@ -64,9 +66,8 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 <script type="text/javascript" src="/estagio-cm/js/index/index.js"></script>
+<script src="/estagio-cm/js/jquery.mask.min.js" type="text/javascript"></script>
 <script>
-$(function() {
-    $( "#data" ).datepicker();
-});
+jQuery("#data").mask("99/99/9999");
 </script>
 </html>

@@ -38,6 +38,17 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public void remove(Long id) {
 		usuarioRepository.remove(id);
 	}
+
+	@Override
+	public void editar(Usuario usuario) {
+		usuarioRepository.editar(usuario);
+	}
+
+	@Override
+	public Usuario pesquisar(Long id) {
+		
+		return usuarioRepository.pesquisar(id);
+	}
 	
 	
 }

@@ -1,5 +1,8 @@
 package br.com.casamagalhaes.estagiocm.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -19,6 +23,7 @@ public class UsuarioController {
 
 	private Result result;
     private Validator validator;
+    private final String formatDate = "dd/mm/YYYY";
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -40,8 +45,10 @@ public class UsuarioController {
 	@Transactional
     @Post
 	@Path("/salvar")
-	public void salvar(Usuario usuario) {
-    	//System.out.println(usuario.getData());
+	public void salvar(Usuario usuario) throws ParseException {
+//    	DateFormat df = new SimpleDateFormat(formatDate);
+//    	String sDate = df.format(usuario.getData());
+//    	usuario.setData(df.parse(sDate));
 		usuarioService.salvar(usuario);
 		result.include("mensagem", "Usuário adicionado com sucesso");
 		result.redirectTo(this.getClass()).index();
@@ -50,7 +57,8 @@ public class UsuarioController {
 	@Get
 	@Path("/pesquisar")
 	public List<Usuario> pesquisar(Usuario usuario) {
-		//result.include("usuarioList", usuarioService.pesquisar(usuario));
+		result.include("usuarioList", usuarioService.pesquisar(usuario));
+		result.permanentlyRedirectTo("/");
 		return usuarioService.pesquisar(usuario);
 	}
 	
@@ -59,5 +67,19 @@ public class UsuarioController {
 	public void delete(Long id) {
 		usuarioService.remove(id);
 		result.redirectTo(this.getClass()).index();
+	}
+	
+	@Transactional
+	@Put
+	@Path("/editar")
+	public void editar(Usuario usuario) {
+		usuarioService.editar(usuario);
+		result.redirectTo(this.getClass()).index();
+	}
+	
+	@Get
+	@Path("/editar/{id}")
+	public Usuario view(Long id) {
+		return usuarioService.pesquisar(id);
 	}
 }
