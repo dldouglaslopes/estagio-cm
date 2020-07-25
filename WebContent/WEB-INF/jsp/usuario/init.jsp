@@ -16,7 +16,7 @@
 	
 	<h1>Login</h1>
 	
-	<form action="<c:url value="/login" />" method="get">
+	<form action="<c:url value="/login" />" method="post">
 		CPF: <input id="cpf" type="text" name="usuario.cpf"/>
 		<br>
 		<br>
@@ -25,15 +25,15 @@
 		<br>
 		<input type="submit" value="Login" />
 	</form>
-	<br>
-	<br>
-	<form action="<c:url value="/index" />" method="get">
-		<input type="submit" value="Cadastro / Consulta" />
-	</form>
+	
 	
 </body>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 <script type="text/javascript" src="/estagio-cm/js/index/index.js"></script>
+<script src="/estagio-cm/js/jquery.mask.min.js" type="text/javascript"></script>
+<script>
+jQuery("#cpf").mask("999.999.999-99");
+</script>
 </html>

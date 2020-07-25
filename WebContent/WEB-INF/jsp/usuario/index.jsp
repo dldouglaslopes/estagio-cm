@@ -13,14 +13,13 @@
 </head>
 <body>
 	<span id="ctx" style="display: none">${ctx}</span>
-	<!--<form action="/greeting" >
-		It works!! Se apresente ${variable}
-		<input type="text" id="nome" name="estagiario.nome" />
-		<input id="btn_vai" type="button" value="Vai!" />
-		<br/>
-		<div id="resposta"></div>
-
-	</form>-->
+	
+	<h3> <span style="color: red;"> ${mensagem} </span></h3>
+	
+	<form action="<c:url value="/" />" method="get">
+		<input type="submit" value="Logout" />
+	</form>
+	
 	<h1> Cadastro de Usuários </h1>
 	<form action="<c:url value="/salvar" />" method="post">
 		Nome: <input id="nome" type="text" name="usuario.nome"/>

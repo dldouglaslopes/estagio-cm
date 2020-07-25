@@ -50,10 +50,21 @@ public class UsuarioController {
 		
 	}
 	
+	@Post
 	@Path("/login")
 	public void login(Usuario usuario) {
-		if (usuarioService.pesquisar(usuario) != null) {
-			
+		List<Usuario> usuarios = usuarioService.pesquisar(usuario);
+		if (usuarios.size() > 0) {
+			if (!usuarios.get(0).getSenha().equals(usuario.getSenha())) {
+				result.redirectTo(this.getClass()).init();
+			}
+			else {
+				result.include("mensagem", "Seja bem-vindo " + usuarios.get(0).getNome() + "!");
+				result.redirectTo(this.getClass()).index(false);
+			}
+		}
+		else {
+			result.redirectTo(this.getClass()).init();
 		}
 	}
 	
