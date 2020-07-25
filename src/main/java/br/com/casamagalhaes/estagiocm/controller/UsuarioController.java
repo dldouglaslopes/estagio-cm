@@ -56,10 +56,9 @@ public class UsuarioController {
 
 	@Get
 	@Path("/pesquisar")
-	public List<Usuario> pesquisar(Usuario usuario) {
+	public void pesquisar(Usuario usuario) {
 		result.include("usuarioList", usuarioService.pesquisar(usuario));
 		result.permanentlyRedirectTo("/");
-		return usuarioService.pesquisar(usuario);
 	}
 	
 	@Transactional

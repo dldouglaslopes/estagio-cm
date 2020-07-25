@@ -20,7 +20,8 @@
 		Nome: <input type="text" name="usuario.nome" value="${usuario.nome}"/>
 		<br>
 		<br>
-		Data: <input type="text" name="usuario.data" value="${usuario.data}"/>
+		<fmt:formatDate var="fmtDate" value="${usuario.data}" pattern="dd/MM/yyyy"/>
+		Data: <input id="data" type="text" name="usuario.data" value="${fmtDate}"/>
 		<br>
 		<br>
 		Senha: <input type="password" name="usuario.senha" value="${usuario.senha}"/>
@@ -37,9 +38,8 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 <script type="text/javascript" src="/estagio-cm/js/index/index.js"></script>
+<script src="/estagio-cm/js/jquery.mask.min.js" type="text/javascript"></script>
 <script>
-$(function() {
-    $( "#data" ).datepicker();
-});
+jQuery("#data").mask("99/99/9999");
 </script>
 </html>
