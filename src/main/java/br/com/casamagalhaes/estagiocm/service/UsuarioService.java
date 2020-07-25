@@ -6,7 +6,7 @@ import br.com.casamagalhaes.estagiocm.model.Usuario;
 
 public interface UsuarioService {
 
-	public String salvar(Usuario usuario);
+	public boolean salvar(Usuario usuario);
 
 	public List<Usuario> listar(String query);
 	

@@ -14,11 +14,15 @@
 <body>
 	<span id="ctx" style="display: none">${ctx}</span>
 	
-	<h3> <span style="color: red;"> ${mensagem} </span></h3>
+	<h3> <span style="color: blue;"> ${mensagem} </span></h3>
 	
 	<form action="<c:url value="/" />" method="get">
 		<input type="submit" value="Logout" />
 	</form>
+	
+	<c:if test="${not empty adicionado}">
+	<h3> <span style="color: red;"> ${adicionado} </span></h3>
+	</c:if>
 	
 	<h1> Cadastro de Usuários </h1>
 	<form action="<c:url value="/salvar" />" method="post">

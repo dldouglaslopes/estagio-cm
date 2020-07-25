@@ -15,13 +15,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public String salvar(Usuario usuario) {
+	public boolean salvar(Usuario usuario) {
 		if(usuario == null) {
 			throw new IllegalArgumentException("Nenhuma propriedade informada");
 		}
-		usuarioRepository.save(usuario);
-		
-		return usuario.getNome();
+		return usuarioRepository.save(usuario);
 	}
 
 	@Override

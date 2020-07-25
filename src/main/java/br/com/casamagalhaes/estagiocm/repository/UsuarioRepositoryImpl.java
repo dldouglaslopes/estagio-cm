@@ -24,8 +24,12 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 	private Session session;
 	
 	@Override
-	public void save(Usuario usuario) {
-		entityManager.persist(usuario);	
+	public boolean save(Usuario usuario) {
+		if (findByCpf(usuario.getCpf())) {
+			return false;
+		}
+		entityManager.persist(usuario);
+		return true;
 	}
 
 	@Override
@@ -68,5 +72,18 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 	@Override
 	public Usuario pesquisar(Long id) {
 		return entityManager.find(Usuario.class, id);
+	}
+
+	@Override
+	public boolean findByCpf(String cpf) {
+		String queryStr = "SELECT u FROM usuario u WHERE u.cpf='" + cpf + "'";
+		Query query = entityManager.createQuery(queryStr);
+		
+		if(query.getResultList().isEmpty()) {
+			return false;
+		}else {
+			return true;
+		}
+		
 	}
 }

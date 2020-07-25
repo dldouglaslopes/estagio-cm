@@ -22,8 +22,7 @@ public class UsuarioController {
 
 	private Result result;
     private Validator validator;
-    private final String formatDate = "dd/mm/YYYY";
-	
+    
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -72,11 +71,13 @@ public class UsuarioController {
     @Post
 	@Path("/salvar")
 	public void salvar(Usuario usuario) throws ParseException {
-//    	DateFormat df = new SimpleDateFormat(formatDate);
-//    	String sDate = df.format(usuario.getData());
-//    	usuario.setData(df.parse(sDate));
-		usuarioService.salvar(usuario);
-		result.include("mensagem", "Usuário adicionado com sucesso");
+		boolean adicionado = usuarioService.salvar(usuario);
+		if (adicionado) {
+			result.include("adicionado", "Usuário adicionado com sucesso");
+		}
+		else {
+			result.include("adicionado", "Usuário com cpf existente");
+		}
 		result.redirectTo(this.getClass()).index(false);
 	}
 
@@ -85,8 +86,6 @@ public class UsuarioController {
 	@Path("/pesquisar")
 	public void pesquisar(Usuario usuario) {
 		result.redirectTo(this.getClass()).index(true, usuario);
-		//result.permanentlyRedirectTo("/");
-		//return usuarioService.pesquisar(usuario);
 	}
 	
 	@Transactional

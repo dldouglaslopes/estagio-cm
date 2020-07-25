@@ -6,7 +6,7 @@ import br.com.casamagalhaes.estagiocm.model.Usuario;
 
 public interface UsuarioRepository {
 	
-	public void save(Usuario usuario);
+	public boolean save(Usuario usuario);
 	
 	public List<Usuario> pesquisar(Usuario usuario);
 	
@@ -17,4 +17,6 @@ public interface UsuarioRepository {
 	public void editar(Usuario usuario);
 	
 	public Usuario pesquisar(Long id);
+	
+	public boolean findByCpf(String cpf);
 }
