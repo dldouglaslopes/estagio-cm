@@ -1,9 +1,8 @@
 package br.com.casamagalhaes.estagiocm.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,13 +33,29 @@ public class UsuarioController {
     }
 	
 	@Get
-    @Path("/")
-    public List<Usuario> index() {
-        String query = "SELECT u FROM usuario u ORDER BY u.nome";
-        result.include("usuarioList", usuarioService.listar(query));
-		return usuarioService.listar(query);
+    @Path("/index")
+    public List<Usuario> index(Boolean searchByFilters, Usuario ...usuario) {
+		if(Objects.nonNull(searchByFilters) && searchByFilters) {
+			result.include("usuarioList", usuarioService.pesquisar(usuario[0]));
+			return usuarioService.pesquisar(usuario[0]);
+		}else {
+			String query = "SELECT u FROM usuario u ORDER BY u.nome";
+	        result.include("usuarioList", usuarioService.listar(query));
+	        return usuarioService.listar(query);
+		}
     }
-
+	
+	@Path("/")
+	public void init() {
+		
+	}
+	
+	@Path("/login")
+	public void login(Usuario usuario) {
+		if (usuarioService.pesquisar(usuario) != null) {
+			
+		}
+	}
 	
 	@Transactional
     @Post
@@ -51,21 +66,23 @@ public class UsuarioController {
 //    	usuario.setData(df.parse(sDate));
 		usuarioService.salvar(usuario);
 		result.include("mensagem", "Usuário adicionado com sucesso");
-		result.redirectTo(this.getClass()).index();
+		result.redirectTo(this.getClass()).index(false);
 	}
 
+	@Transactional
 	@Get
 	@Path("/pesquisar")
 	public void pesquisar(Usuario usuario) {
-		result.include("usuarioList", usuarioService.pesquisar(usuario));
-		result.permanentlyRedirectTo("/");
+		result.redirectTo(this.getClass()).index(true, usuario);
+		//result.permanentlyRedirectTo("/");
+		//return usuarioService.pesquisar(usuario);
 	}
 	
 	@Transactional
 	@Path("/delete/{id}")
 	public void delete(Long id) {
 		usuarioService.remove(id);
-		result.redirectTo(this.getClass()).index();
+		result.redirectTo(this.getClass()).index(false);
 	}
 	
 	@Transactional
@@ -73,7 +90,7 @@ public class UsuarioController {
 	@Path("/editar")
 	public void editar(Usuario usuario) {
 		usuarioService.editar(usuario);
-		result.redirectTo(this.getClass()).index();
+		result.redirectTo(this.getClass()).index(false);
 	}
 	
 	@Get

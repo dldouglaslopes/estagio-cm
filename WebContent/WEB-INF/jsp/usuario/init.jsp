@@ -14,26 +14,21 @@
 <body>
 	<span id="ctx" style="display: none">${ctx}</span>
 	
-	<h1>Usuário Selecionado</h1>
-	Nome do usuário selecionado: ${usuario.nome}
-	<form action="<c:url value="/editar" />" method="post">
-		Nome: <input type="text" name="usuario.nome" value="${usuario.nome}"/>
+	<h1>Login</h1>
+	
+	<form action="<c:url value="/login" />" method="get">
+		CPF: <input id="cpf" type="text" name="usuario.cpf"/>
 		<br>
 		<br>
-		CPF: <input id="cpf" type="text" name="usuario.cpf" value="${usuario.cpf}"/>
+		Senha: <input type="password" name="usuario.senha"/>
 		<br>
 		<br>
-		<fmt:formatDate var="fmtDate" value="${usuario.data}" pattern="dd/MM/yyyy"/>
-		Data: <input id="data" type="text" name="usuario.data" value="${fmtDate}"/>
-		<br>
-		<br>
-		Senha: <input type="password" name="usuario.senha" value="${usuario.senha}"/>
-		<br>
-		<br>
-		<input type="hidden" name="usuario.id" value="${usuario.id}" />
-		<input type="hidden" name="_method" value="put" />
-		<input type="submit" value="Alterar" />
-		
+		<input type="submit" value="Login" />
+	</form>
+	<br>
+	<br>
+	<form action="<c:url value="/index" />" method="get">
+		<input type="submit" value="Cadastro / Consulta" />
 	</form>
 	
 </body>
@@ -41,11 +36,4 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 <script type="text/javascript" src="/estagio-cm/js/index/index.js"></script>
-<script src="/estagio-cm/js/jquery.mask.min.js" type="text/javascript"></script>
-<script>
-jQuery("#data").mask("99/99/9999");
-</script>
-<script>
-jQuery("#cpf").mask("999.999.999-99");
-</script>
 </html>

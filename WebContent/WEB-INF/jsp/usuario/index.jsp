@@ -26,6 +26,9 @@
 		Nome: <input id="nome" type="text" name="usuario.nome"/>
 		<br>
 		<br>
+		CPF: <input id="cpf" type="text" name="usuario.cpf"/>
+		<br>
+		<br>
 		Data: <input id="data" type="text" name="usuario.data"/>
 		<br>
 		<br>
@@ -33,11 +36,17 @@
 		<br>
 		<br>
 		<input type="submit" value="Salvar" />
-		
 	</form>
 	<br>
 	<br>
-	<input id="pesquisar" type="button" value="Pesquisar" />
+	
+	<h1> Pesquisa de Usuários </h1>
+	<form action="<c:url value="/pesquisar" />" method="get">
+		Nome: <input type="text" name="usuario.nome"/>
+		CPF: <input id="cpfp" type="text" name="usuario.cpf"/>
+		<input id="pesquisar" type="submit" value="Pesquisar" />
+	</form>
+	
 	<br>
 	<br>
 	<h1> Lista de Usuários </h1>
@@ -46,6 +55,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Nome</th>
+				<th>CPF</th>
 				<th>Data</th>
 			</tr>
 		</thead>
@@ -54,6 +64,7 @@
 				<tr>
 					<td>${usuario.id}</td>
 					<td>${usuario.nome}</td>
+					<td>${usuario.cpf}</td>
 					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${usuario.data}"/></td>
 					<td><a href="<c:url value="/editar/${fn:trim(usuario.id)}"/>">Editar</a></td>
 					<td><a href="<c:url value="/delete/${fn:trim(usuario.id)}"/>">Excluir</a></td>
@@ -69,5 +80,9 @@
 <script src="/estagio-cm/js/jquery.mask.min.js" type="text/javascript"></script>
 <script>
 jQuery("#data").mask("99/99/9999");
+</script>
+<script>
+jQuery("#cpf").mask("999.999.999-99");
+jQuery("#cpfp").mask("999.999.999-99");
 </script>
 </html>

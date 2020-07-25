@@ -33,6 +33,8 @@ public class Usuario implements Serializable {
 	
 	private String senha;
 	
+	private String cpf;
+
 	public Long getId() {
 		return id;
 	}
@@ -63,6 +65,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	@Override

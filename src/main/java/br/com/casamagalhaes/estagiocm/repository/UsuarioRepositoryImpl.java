@@ -30,7 +30,20 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 
 	@Override
 	public List<Usuario> pesquisar(Usuario usuario) {
-		String queryStr = "SELECT u FROM usuario u where u.nome like '%" + usuario.getNome() + "%' ORDER BY u.nome";
+		String queryStr = "SELECT u FROM usuario u ";
+		
+		if (Objects.nonNull(usuario.getCpf()) || Objects.nonNull(usuario.getNome())) {
+			if (Objects.nonNull(usuario.getCpf()) && Objects.isNull(usuario.getNome())) {
+				queryStr += "WHERE u.cpf='" + usuario.getCpf() + "'";
+			}
+			else if(Objects.isNull(usuario.getCpf()) && Objects.nonNull(usuario.getNome())){
+				queryStr += "WHERE u.nome LIKE '%" + usuario.getNome() + "%'";
+			}
+			else {
+				queryStr += "WHERE u.cpf='" + usuario.getCpf() + "' AND u.nome LIKE '%" + usuario.getNome() + "%'";
+			}
+		}
+
 		Query query = entityManager.createQuery(queryStr);
 		
         return query.getResultList();
