@@ -26,7 +26,7 @@
 	
 	<h1> Cadastro de Usuários </h1>
 	<form action="<c:url value="/salvar" />" method="post">
-		Nome: <input id="nome" type="text" name="usuario.nome"/>
+		Nome: <input id="nome" type="text" name="usuario.nome" />
 		<br>
 		<br>
 		CPF: <input id="cpf" type="text" name="usuario.cpf"/>

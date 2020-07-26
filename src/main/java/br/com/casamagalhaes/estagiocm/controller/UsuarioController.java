@@ -75,17 +75,25 @@ public class UsuarioController {
     @Post
 	@Path("/salvar")
 	public void salvar(Usuario usuario) throws Exception {
-		Criptografia criptografia = new Criptografia();
-		String criptografado = criptografia.criptografarMD5(usuario);
-		
-		usuario.setSenha(criptografado);
-		
-		boolean adicionado = usuarioService.salvar(usuario);
-		if (adicionado) {
-			result.include("adicionado", "Usuário adicionado com sucesso");
+		if (Objects.nonNull(usuario.getCpf()) &&
+			Objects.nonNull(usuario.getData()) &&
+			Objects.nonNull(usuario.getNome()) &&
+			Objects.nonNull(usuario.getSenha())) {
+			Criptografia criptografia = new Criptografia();
+			String criptografado = criptografia.criptografarMD5(usuario);
+			
+			usuario.setSenha(criptografado);
+			
+			boolean adicionado = usuarioService.salvar(usuario);
+			if (adicionado) {
+				result.include("adicionado", "Usuário adicionado com sucesso");
+			}
+			else {
+				result.include("adicionado", "Usuário com cpf existente");
+			}
 		}
 		else {
-			result.include("adicionado", "Usuário com cpf existente");
+			result.include("adicionado", "Existem campos vazios");
 		}
 		result.redirectTo(this.getClass()).index(false);
 	}
