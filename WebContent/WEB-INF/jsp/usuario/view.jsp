@@ -27,7 +27,7 @@
 		Data: <input id="data" type="text" name="usuario.data" value="${fmtDate}"/>
 		<br>
 		<br>
-		Senha: <input type="password" name="usuario.senha" value="${usuario.senha}"/>
+		Senha: <input type="password" name="usuario.senha" value=""/>
 		<br>
 		<br>
 		<input type="hidden" name="usuario.id" value="${usuario.id}" />

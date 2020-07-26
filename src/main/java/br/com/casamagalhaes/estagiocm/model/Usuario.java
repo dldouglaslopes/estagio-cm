@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sun.istack.internal.NotNull;
+
 import br.com.caelum.vraptor.Convert;
 import br.com.casamagalhaes.estagiocm.converter.DateConverter;
 
@@ -26,13 +28,17 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+	@NotNull
 	private String nome;
 	
+	@NotNull
 	@Convert(DateConverter.class)
 	private Date data;
 	
+	@NotNull
 	private String senha;
 	
+	@NotNull
 	private String cpf;
 
 	public Long getId() {

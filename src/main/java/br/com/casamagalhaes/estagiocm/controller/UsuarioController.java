@@ -75,6 +75,11 @@ public class UsuarioController {
     @Post
 	@Path("/salvar")
 	public void salvar(Usuario usuario) throws Exception {
+		Criptografia criptografia = new Criptografia();
+		String criptografado = criptografia.criptografarMD5(usuario);
+		
+		usuario.setSenha(criptografado);
+		
 		boolean adicionado = usuarioService.salvar(usuario);
 		if (adicionado) {
 			result.include("adicionado", "Usuário adicionado com sucesso");
@@ -102,7 +107,10 @@ public class UsuarioController {
 	@Transactional
 	@Put
 	@Path("/editar")
-	public void editar(Usuario usuario) {
+	public void editar(Usuario usuario) throws NoSuchAlgorithmException {
+		Criptografia criptografia = new Criptografia();
+		String criptografado = criptografia.criptografarMD5(usuario);
+		usuario.setSenha(criptografado);
 		usuarioService.editar(usuario);
 		result.redirectTo(this.getClass()).index(false);
 	}

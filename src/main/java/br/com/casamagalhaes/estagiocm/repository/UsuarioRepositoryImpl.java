@@ -25,11 +25,6 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 			return false;
 		}
 		
-		Criptografia criptografia = new Criptografia();
-		String criptografado = criptografia.criptografarMD5(usuario);
-		
-		usuario.setSenha(criptografado);
-		
 		entityManager.persist(usuario);
 		return true;
 	}
