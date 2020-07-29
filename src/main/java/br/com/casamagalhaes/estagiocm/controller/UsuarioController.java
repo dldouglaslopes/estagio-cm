@@ -27,6 +27,9 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private Criptografia criptografiac;
+	
 	public UsuarioController(Result result, Validator validator) {
         this.result = result;
         this.validator = validator;
@@ -35,6 +38,7 @@ public class UsuarioController {
 	@Get
     @Path("/index")
     public List<Usuario> index(Boolean searchByFilters, Usuario ...usuario) {
+		System.out.println("Funcionalidade A");
 		if(Objects.nonNull(searchByFilters) && searchByFilters) {
 			result.include("usuarioList", usuarioService.pesquisar(usuario[0]));
 			return usuarioService.pesquisar(usuario[0]);

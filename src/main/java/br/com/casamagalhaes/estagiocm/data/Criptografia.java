@@ -3,8 +3,11 @@ package br.com.casamagalhaes.estagiocm.data;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Service;
+
 import br.com.casamagalhaes.estagiocm.model.Usuario;
 
+@Service
 public class Criptografia {
 
 	public String criptografarMD5(Usuario usuario) throws NoSuchAlgorithmException {
